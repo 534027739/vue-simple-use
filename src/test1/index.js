@@ -4,6 +4,14 @@ import App from './App.vue';
 
 let vm = new Vue({
     el: '#app',
-    render: h => h(App)
+    render: h => h(App),
+    data:{
+        message: 'a global data'
+    },
+    computed:{
+        countMessage: function(){
+            return this.message.length
+        }
+    }
 })
 console.log(vm.$el)

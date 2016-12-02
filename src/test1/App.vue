@@ -1,7 +1,9 @@
 <template>
-    <div id='app' v-bind:title='title'>
+    <div id='app' :title='title'>
+        <!--title作为一个dom属性被绑定在数据中-->
         {{ msg }}
-        <p v-if='seen' v-on:click="handleChage">You Can See Me</p>
+        <p>This part show global data --> {{message}}</p>
+        <p v-if='seen' @click="handleChage">You Can See Me</p>
         <Hello></Hello>
     </div>
 </template>
@@ -16,7 +18,7 @@
         },
         data () {
             return {
-                title: '123',
+                title: 'vue',
                 msg: 'Welcome to Your Vue.js App',
                 seen: true
             }
@@ -26,5 +28,6 @@
                 this.seen = !this.seen;
             }
         }
+        
     }
 </script>
