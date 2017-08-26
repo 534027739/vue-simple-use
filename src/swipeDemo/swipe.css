@@ -1,0 +1,22 @@
+.zheui-swipe {
+    height: 200px;
+    color: #fff;
+    font-size: 30px;
+    text-align: center;
+    line-height: 200px;
+}
+
+.slide1 {
+    background-color: #0089dc;
+    color: #fff;
+}
+
+.slide2 {
+    background-color: #ffd705;
+    color: #000;
+}
+
+.slide3 {
+    background-color: #ff2d4b;
+    color: #fff;
+}

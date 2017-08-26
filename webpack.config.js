@@ -2,6 +2,7 @@ var path = require('path');
 var webpack = require('webpack');
 var fs = require('fs');
 var glob = require('glob');
+var ExtractTextPlugin = require("extract-text-webpack-plugin");
 
 //各文件夹路径
 var ROOT_PATH = path.resolve(__dirname);
@@ -16,7 +17,7 @@ var isTest = NODE_ENV === 'test' ? true : false;
 //入口js
 var entryFiles = glob.sync(STATIC_PATH + '/**/index.{js,jsx}');
 var entryJs = {};
-// console.log(entryFiles);
+console.log(entryFiles);
 entryFiles.forEach(function(filePath){
     var entryName = filePath.substring(filePath.lastIndexOf('/src/')+5 , filePath.lastIndexOf('\/'))
     entryJs[entryName] = filePath;
@@ -52,13 +53,19 @@ module.exports = {
         }, {
             test: /\.html$/,
             loader: 'vue-html'
-        }, {
+        }, 
+        {
+            test:/\.css$/,    
+            loader:ExtractTextPlugin.extract('style-loader','css-loader!postcss-loader'),
+            include: STATIC_PATH
+        },
+        {
             test: /\.(png|jpg|gif|svg)$/,
             loader: 'url',
-            query: {
-                limit: 10000,
-                name: '[name].[ext]?[hash]'
-            }
+            loaders: [
+                'url?limit=8192&name=img/[name].[ext]', //<= 8kb 的图自动转换成base64编码 dataurl 
+                'image?{bypassOnDebug:true, progressive:true,optimizationLevel:3,pngquant:{quality:"65-80",speed:4}}' // 压缩图片
+            ]
         }]
     },
     devServer: {
